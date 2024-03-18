@@ -14,6 +14,7 @@ class Instructor(models.Model):
         return self.name 
 
 
+
 #category courses, for example: cybersecurity= pentesting
 class CategoryCourse(models.Model):
     title = models.CharField(max_length=100)
