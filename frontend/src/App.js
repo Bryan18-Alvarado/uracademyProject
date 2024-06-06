@@ -11,6 +11,7 @@ import AllCourse from './components/AllCourses';
 import CourseDetail from './components/CourseDetail';
 import Checkout from './components/Checkout';
 import RelatedSingleCourses from './components/RelatedSingleCourses';
+import RelatedCategories from './components/RelatedCategories';
 
 import Register from "./components/Customer/Register";
 import Login from "./components/Customer/Login";
@@ -35,7 +36,7 @@ import VendorOrders from './components/seller/VendorOrders';
 import Report from './components/seller/Report';
 import SellerProfile from './components/seller/Profile';
 import SellerChangePassword from './components/seller/ChangePassword';
-import SellerRegister from './components/seller/SellerRegister';
+import RegisterInstructor from './components/instructor/SellerRegister';
 import SellerLogin from './components/seller/SellerLogin';
 import Instructor from './components/instructor/Instructor';
 import InstructorDetail from './components/instructor/InstructorDetail';
@@ -67,6 +68,7 @@ function App() {
         <Route path='/courses' element={<AllCourse />} />
         <Route path='/course/:course_slug/:course_id' element={<CourseDetail />} />
         <Route path= '/related-courses/:course_slug/:course_id' element={<RelatedSingleCourses />} />       
+        <Route path= '/related-categories/:category_slug/:categoru_id' element={<RelatedCategories />} />       
         <Route path='checkout' element={<Checkout />} />
 
         {/* customer routes */}
@@ -92,7 +94,7 @@ function App() {
         <Route path="/seller/reports" element={<Report />} />
         <Route path="/seller/profile" element={<SellerProfile />} />
         <Route path="/seller/change-password" element={<SellerChangePassword />} />
-        <Route path="/seller/register" element={< SellerRegister />} />
+        <Route path="/seller/register" element={< RegisterInstructor />} />
         <Route path="/seller/login" element={<SellerLogin />} />
         <Route path="/seller/course" element={<Course />} />
 
