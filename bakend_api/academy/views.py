@@ -23,22 +23,40 @@ from django.dispatch import receiver
 
 
 @csrf_exempt
-def Instructor_login(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(username=username, password=password)
-    if user:
-        msg = {
-            'bool': True,
-            'user': user.username
-        }
+def instructor_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Autenticar al usuario
+        user = authenticate(username=username, password=password)
+
+        if user:
+            # Verificar si el usuario tiene un objeto Instructor asociado
+            try:
+                instructor = Instructor.objects.get(user=user)
+                msg = {
+                    'bool': True,
+                    'user': user.username,
+                    'msg': 'inicio exitoso'
+                }
+            except Instructor.DoesNotExist:
+                msg = {
+                    'bool': False,
+                    'msg': 'El usuario no es un instructor.'
+                }
+        else:
+            msg = {
+                'bool': False,
+                'msg': 'Nombre de usuario o contraseña inválido.'
+            }
     else:
         msg = {
             'bool': False,
-            'msg': 'Nombre de usuario o contraseña inválido!!'
+            'msg': 'Método de solicitud no permitido.'
         }
-    return JsonResponse(msg)
 
+    return JsonResponse(msg)
 
 @csrf_exempt
 def Instructor_register(request):
@@ -168,21 +186,39 @@ class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
 
 @csrf_exempt
 def customer_login(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(username=username, password=password)
-    if user:
-        msg = {
-            'bool': True,
-            'user': user.username
-        }
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Autenticar al usuario
+        user = authenticate(username=username, password=password)
+
+        if user:
+            # Verificar si el usuario tiene un objeto customer asociado
+            try:
+                customer = Customer.objects.get(user=user)
+                msg = {
+                    'bool': True,
+                    'user': user.username,
+                    'msg': 'inicio exitoso'
+                }
+            except Customer.DoesNotExist:
+                msg = {
+                    'bool': False,
+                    'msg': 'El usuario no es un customer.'
+                }
+        else:
+            msg = {
+                'bool': False,
+                'msg': 'Nombre de usuario o contraseña inválido.'
+            }
     else:
         msg = {
             'bool': False,
-            'msg': 'Nombre de usuario o contraseña invalido!!'
+            'msg': 'Método de solicitud no permitido.'
         }
-    return JsonResponse(msg)
 
+    return JsonResponse(msg)
 
 @csrf_exempt
 def customer_register(request):
